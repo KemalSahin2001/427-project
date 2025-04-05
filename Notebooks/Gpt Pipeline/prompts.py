@@ -5,7 +5,6 @@ Your task is to:
 1. Extract the issue types from the conversation.
 2. Issue type refers to the nature of the problem, complaint, or concern mentioned by the customer.
 3. The issue types should be short phrases summarizing the problem (e.g., "billing error", "account locked", "slow internet").
-4. If no issue is mentioned, return an empty list: []
 
 ---
 
@@ -64,7 +63,6 @@ Your task is to:
     - Technical services
     - Any named service offered by the company
 3. Only extract service names or service types exactly as mentioned (do not paraphrase).
-4. If no services are mentioned, return an empty list: []
 
 ---
 
@@ -98,7 +96,6 @@ If no service is mentioned:
 
 ### Notes:
 - Only extract from the conversation, regardless of who mentioned it.
-- Return `[]` if there is no service mentioned.
 - Do NOT return `null`.
 - DO NOT repeat the conversation in the output.
 - Return the service names exactly as they appear in the conversation.
@@ -116,8 +113,8 @@ Your task is to:
     - Physical items (e.g., phones, routers, modems)
     - Services (e.g., accounts, plans, subscriptions, internet services)
     - Contracts or memberships (e.g., annual plans, premium accounts)
+    - Any named product offered by the company
 3. Return them exactly as mentioned (no paraphrasing).
-4. If no such products are mentioned, return an empty list: []
 
 ---
 
