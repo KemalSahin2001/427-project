@@ -54,7 +54,7 @@ from tqdm import tqdm
 
 # ───────────────────────────── prompts ---------------------------------------
 # keep import outside the class so users can swap their own prompt module
-from prompts import (  # noqa: E402  pylint: disable=wrong-import-position
+from Py_files.prompts import (  # noqa: E402  pylint: disable=wrong-import-position
     ISSUE_TYPE_PROMPT,
     PRODUCT_PROMPT,
     RELATIONSHIP_PROMPT,
@@ -90,7 +90,6 @@ class LLMExtractor:
     # -------------------------- init ------------------------------ #
     def __init__(
         self,
-        *,                              # enforce keyword-only for clarity
         data_path: str | Path | None = None,
         output_dir: str | Path = ".",
         dataframe: pd.DataFrame | None = None,

@@ -15,3 +15,4 @@ top5 = reranker.rerank(query, rag_outputs)
 
 for idx, (text, score) in enumerate(top5, 1):
     print(f"{idx}. {score:.4f} - {text}")
+

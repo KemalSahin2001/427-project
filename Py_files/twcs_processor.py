@@ -244,6 +244,24 @@ class TWCSProcessor:
 
         structured.append(messages)
         return structured
+    
+    @staticmethod
+    def _convert_to_conversation(user_input: str) -> dict:
+        """
+        Converts a plain user input string into a structured conversation format.
+
+        Args:
+            user_input (str): The customer's message.
+            default_response (str): Default company response message.
+
+        Returns:
+            dict: A dictionary containing the conversation.
+        """
+        return {
+            "conversation": [
+                {"role": "Customer", "message": user_input},
+            ]
+        }
 
     def _structure(self) -> None:
         self.log.info("Converting to structured JSON-like records")
