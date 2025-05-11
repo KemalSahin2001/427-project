@@ -269,7 +269,7 @@ class LLMExtractor:
 
 
 # --------------------------------------------------------------------------- #
-# Optional CLI entry-point                                                   #
+# Optional CLI entry-point                                                    #
 # --------------------------------------------------------------------------- #
 if __name__ == "__main__":
     import argparse

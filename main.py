@@ -1,5 +1,5 @@
 from Py_files.reranker import CrossEncoderReranker
-
+# This script demonstrates how to use the CrossEncoderReranker class to rerank a list of outputs based on a given query.
 reranker = CrossEncoderReranker()
 
 query = "Explain the benefits of machine learning"
