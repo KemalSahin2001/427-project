@@ -31,10 +31,13 @@ def parse_string(s):
 
 def main():
     # Read Excel (raw strings in first column)
-    df = pd.read_excel("TWCS4000Embedding.xlsx")
+    df = pd.read_excel("C:\\Users\paris\Documents\GitHub\\427-project\Data\processed\embeddings\TWCS4000Embedding.xlsx")
 
     # Connect to Elasticsearch
-    es = Elasticsearch("http://localhost:9200")
+    es = Elasticsearch(
+        "http://localhost:9200",
+        basic_auth=("elastic", "*pwASJfphV27RFS=BSWH")
+)
     index = "chat_embeddings"
 
     # Determine embedding dimension
@@ -47,7 +50,7 @@ def main():
 
     mapping = {
         "mappings": {
-            "properties": {
+            "properties": { 
                 "ChatID":               {"type": "keyword"},
                 "Company_name":         {"type": "text"},
                 "Conversation_History": {"type": "object"},

@@ -3,7 +3,7 @@ from elasticsearch import Elasticsearch
 
 def query_similar(embedding, k=5, index="chat_embeddings", host="localhost", port=9200):
     # connect with scheme
-    es = Elasticsearch(f"http://{host}:{port}")
+    es = Elasticsearch(f"http://{host}:{port}", basic_auth=("elastic", "*pwASJfphV27RFS=BSWH"))
 
     # fetch embedding dim
     mapping = es.indices.get_mapping(index=index)
