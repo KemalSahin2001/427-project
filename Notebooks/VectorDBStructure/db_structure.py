@@ -44,6 +44,7 @@ class DatabaseStructure:
   def convertExcel(self,save_path):
     company_names = self.df["company_name"]
     conversations = self.df["cleaned_conversations"]
+    conversations_structured = self.df["structured_conversations"]
     entities = self.df["entities"]
     relationships = self.df["relationship"]
     resolution = self.df["resolution"]
@@ -57,7 +58,7 @@ class DatabaseStructure:
           "Conversation_History": {"conversation": conversations[i]},
           "Entities": entities[i],
           "Relationships": relationship_fixed,
-          "Embedding" : self.text_to_embedding(entities[i],relationship_fixed)
+          "Embedding" : self.text_to_embedding(conversations_structured[i],entities[i],relationship_fixed)
       }
       self.json_structured.append(str(json_data))
 
@@ -110,7 +111,7 @@ class DatabaseStructure:
     ### For database embedding, it is called from convertExcel function
     ### fix_relationships function should be called before this function for individual embedding
     ###
-    
+
     text_intent = self.structured_to_text(conversation,entity,relationship)
     text_conversation = self.process_conversation(conversation)
     embedding_intent = self.model.encode(text_intent, padding=True, truncation=True)
