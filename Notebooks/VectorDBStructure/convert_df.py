@@ -10,10 +10,11 @@ textembedding.convertExcel(SAVE_PATH)
 ## 
 # Individual conversion
 """
+conversation = "conv"
 entity = "Entity1"
 relationship = "Rel1"
 resolution = "Res1"
 relationship_fixed = textembedding.fix_relationships(relationship, resolution)
-textembedding.text_to_embedding(entity,relationship_fixed)
+textembedding.text_to_embedding(conversation,entity,relationship_fixed)
 """
 ## 
