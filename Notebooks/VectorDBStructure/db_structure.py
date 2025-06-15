@@ -64,41 +64,64 @@ class DatabaseStructure:
     pd.DataFrame(self.json_structured,columns=["jsonSummary"]).to_excel(save_path, index=False)
     
     
-
-  def structured_to_text(self, entity,relationship):
+  def process_conversation(self,structured_conversation):
+    if isinstance(structured_conversation, str):
+      try:
+         conversation = json.loads(structured_conversation)
+      except json.JSONDecodeError:
+         conversation = structured_conversation.replace("'", '"') 
+         conversation = json.loads(conversation)
+    
+    conversation_text = "Conversation: "
+    for item in conversation:
+        conversation_text += f"{item['role']}: {item['message']} "
+    return conversation_text.strip()
+      
     
 
+
+
+  def structured_to_text(self,conversation,entity,relationship):
     if (isinstance(entity,str)) or (isinstance(relationship,str)):
       entity = json.loads(entity)
       relationship = json.loads(relationship)
-    entity_texts = []
-
-    for key, val in entity.items():
-        entity_texts.append(f'{key}: {", ".join(val)}')
-
+    entity_texts = [] 
+    for key,val in entity.items():
+      entity_texts.append(f'{key}: {", ".join(val)}')
     entity_text = ". ".join(entity_texts)
-
     relationships_text = ""
     for item in relationship:
       for key,val in item.items():
-        relationships_text += f"{val} "
+          relationships_text += f"{val} "
       relationships_text = relationships_text.strip()
       relationships_text += ". "
-
-    combined_text = f"{entity_text}. {relationships_text}"
-
+    
+    
+    conversation_text = self.process_conversation(conversation)
+    combined_text = f"{entity_text}; {relationships_text}; {conversation_text}"
+    
     return combined_text
+  
 
-  def text_to_embedding(self, entity,relationship):
+
+  def text_to_embedding(self,conversation,entity,relationship):
     ###
     ### Relationships should be fixed before passing to this function
     ### For database embedding, it is called from convertExcel function
     ### fix_relationships function should be called before this function for individual embedding
     ###
+    
+    text_intent = self.structured_to_text(conversation,entity,relationship)
+    text_conversation = self.process_conversation(conversation)
+    embedding_intent = self.model.encode(text_intent, padding=True, truncation=True)
+    embedding_text = self.model.encode(text_conversation, padding=True, truncation=True)
+    
+    return embedding_intent + embedding_text
 
-    text = self.structured_to_text(entity,relationship)
-    embedding = self.model.encode(text)
-    return embedding
 
 
-   
+
+
+
+    
+    
