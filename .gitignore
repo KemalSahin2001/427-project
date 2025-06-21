@@ -1,4 +1,2 @@
-Notebooks/Gpt Pipeline/.env
 Data/raw/*
-Data/processed/*
-
+.env
